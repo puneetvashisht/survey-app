@@ -43,7 +43,7 @@ export class TakeSurveyComponent implements OnInit {
     })
     this.surveyService.fetchAllOptions(this.surveyName).subscribe((res: any) => {
       
-      this.question = res.question;
+      this.question = res.text;
       this.choices = res.choices;
       })
 

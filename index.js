@@ -18,9 +18,15 @@ mongoose.connect(url, {
   useUnifiedTopology: true
 });
 
+const ChoiceSchema = new mongoose.Schema({
+  text: { type: String, default: '' },
+  count: {type: Number, default: 0}
+});
+
 const SurveySchema = new mongoose.Schema({
     text: { type: String, default: '' },
-    date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now },
+    choices: [ChoiceSchema]
   });
 const Survey = mongoose.model('Survey', SurveySchema);
 
@@ -41,7 +47,8 @@ app.post('/survey', (req, res)=>{
     let survey = req.body;
     // users.push(user);
     const obj = new Survey();
-    obj.text = survey.text;
+    obj.text = survey.text
+    obj.choices = survey.choices
     obj.save((error, result)=> {
         res.status(201).end();
     })

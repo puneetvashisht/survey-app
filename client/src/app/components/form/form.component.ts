@@ -57,9 +57,15 @@ export class FormComponent implements OnInit {
             console.log(this.surveyForm.value);
             console.log("XXXXXXXXXXXXXXXXXXXXXXX");
             console.log(this.surveyContainer);
-
-
-            var surveyObj = {"text": this.surveyForm.value.question_text}
+            let choices =  []
+            this.surveyForm.value.options.forEach((option)=>{
+                  var choice = {text: ""}
+                  choice.text = option
+                  choices.push(choice)
+            })
+            console.log(choices)
+            var surveyObj = {"text": this.surveyForm.value.question_text, "choices":choices }
+            console.log(surveyObj)
             this.surveyService.addSurvey(surveyObj)
             .subscribe((res)=> {
                   console.log(res);
